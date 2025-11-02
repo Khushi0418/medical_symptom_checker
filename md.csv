@@ -1,0 +1,36 @@
+Disease,Symptoms,Advice,Severity
+Common Cold,"cough, runny nose, mild fever","Rest, drink fluids, over-the-counter cold medicine if needed",Mild
+Influenza,"fever, headache, cough, fatigue, chills","Rest, drink fluids, consult doctor if severe",Moderate
+Pneumonia,"cough, fever, fatigue, chest pain, shortness of breath","Consult doctor immediately",Severe
+Bronchitis,"cough, mucus, shortness of breath, mild fever","Rest, stay hydrated, consult doctor if persistent",Moderate
+COPD,"cough, shortness of breath, fatigue, wheezing","Avoid smoking, follow prescribed inhalers, pulmonary rehab",Severe
+Asthma,"wheezing, shortness of breath, chest tightness","Avoid triggers, use inhaler as prescribed, consult doctor",Moderate
+Migraine,"headache, nausea, sensitivity to light or sound","Rest in dark room, take prescribed medications, stay hydrated",Mild
+Tuberculosis,"persistent cough, fever, night sweats, weight loss","Seek medical attention, follow prescribed treatment",Severe
+Hepatitis A,"fatigue, nausea, abdominal pain, jaundice","Consult doctor, stay hydrated, avoid alcohol",Moderate
+Typhoid,"fever, headache, abdominal pain, diarrhea","Seek medical attention, follow prescribed antibiotics",Severe
+Chickenpox,"itchy rash, fever, fatigue","Avoid scratching, consult doctor if severe, rest",Mild
+Measles,"fever, cough, rash, runny nose","Consult doctor immediately, vaccination if not immune",Severe
+Malaria,"fever, chills, sweating, headache, nausea","Seek immediate medical attention",Severe
+Dengue,"fever, headache, muscle pain, rash, nausea","Seek medical attention, stay hydrated",Severe
+COVID-19,"fever, cough, fatigue, loss of taste or smell","Self-isolate, consult healthcare provider, get tested",Moderate
+Epilepsy,"seizures, loss of consciousness, confusion","Consult neurologist, medication adherence, safety measures",Severe
+Alzheimer's Disease,"memory loss, confusion, difficulty performing daily tasks","Consult neurologist, cognitive therapy, caregiver support",Severe
+Anemia,"fatigue, weakness, pale skin, shortness of breath","Eat iron-rich foods, consult doctor for supplements",Moderate
+Hypertension,"headache, dizziness, blurred vision, nosebleeds","Consult doctor, monitor blood pressure, lifestyle changes",Moderate
+Diabetes,"frequent urination, excessive thirst, fatigue, blurred vision","Consult doctor, manage diet, exercise, medication adherence",Moderate
+Stroke,"sudden numbness, confusion, trouble speaking, vision problems","Seek emergency medical attention immediately",Severe
+Heart Attack,"chest pain, shortness of breath, nausea, fatigue","Call emergency services immediately",Severe
+Gastritis,"abdominal pain, nausea, bloating","Avoid irritants, take antacids, consult doctor if persistent",Mild
+Acidity,"heartburn, bloating, nausea, burping","Avoid spicy foods, antacids, small frequent meals",Mild
+Urinary Tract Infection,"painful urination, frequent urination, lower abdominal pain","Drink fluids, consult doctor for antibiotics",Moderate
+Kidney Stones,"severe abdominal pain, blood in urine, nausea, vomiting","Consult doctor, stay hydrated, possible surgical intervention",Severe
+Appendicitis,"abdominal pain, nausea, vomiting, fever","Seek immediate medical attention",Severe
+Osteoarthritis,"joint pain, stiffness, swelling","Exercise, physiotherapy, consult doctor for medications",Moderate
+Rheumatoid Arthritis,"joint pain, swelling, fatigue, morning stiffness","Consult rheumatologist, medications, physiotherapy",Severe
+Parkinson's Disease,"tremors, stiffness, slowness of movement, balance problems","Consult neurologist, medications, physiotherapy",Severe
+Depression,"persistent sadness, loss of interest, fatigue, sleep disturbances","Consult mental health professional, therapy, lifestyle changes",Moderate
+Anxiety,"nervousness, rapid heartbeat, sweating, restlessness","Consult mental health professional, therapy, relaxation techniques",Moderate
+Insomnia,"difficulty falling asleep, frequent waking, fatigue","Sleep hygiene, consult doctor if persistent",Mild
+Allergy,"sneezing, itchy eyes, runny nose, rash","Avoid allergens, antihistamines, consult doctor if severe",Mild
+Food Poisoning,"nausea, vomiting, diarrhea, abdominal pain","Hydrate, consult doctor if symptoms persist",Moderate
