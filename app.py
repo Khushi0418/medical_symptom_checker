@@ -9,7 +9,6 @@ page_bg = """
 <style>
 body {
     background: linear-gradient(to bottom right, #e3f2fd, #bbdefb);
-    color: #0d47a1;
     font-family: 'Segoe UI', sans-serif;
 }
 h1 {
@@ -31,20 +30,20 @@ div.stButton > button:hover {
     border-radius: 10px;
 }
 .card {
-    background-color: white;
     border-radius: 15px;
     padding: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     margin-top: 15px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 .mild {
-    border-left: 8px solid #81c784;
+    background: linear-gradient(to right, #66bb6a, #43a047);
 }
 .moderate {
-    border-left: 8px solid #ffeb3b;
+    background: linear-gradient(to right, #ffb300, #f57c00);
 }
 .severe {
-    border-left: 8px solid #e57373;
+    background: linear-gradient(to right, #ef5350, #c62828);
 }
 </style>
 """
@@ -74,6 +73,8 @@ if user_input:
                 emoji = "⚠️"
             elif severity == "moderate":
                 emoji = "🩺"
+            elif severity == "mild":
+                emoji = "🌿"
 
             st.markdown(
                 f"""
@@ -114,6 +115,8 @@ if user_message:
                 emoji = "⚠️"
             elif r["Severity"].lower() == "moderate":
                 emoji = "🩺"
+            elif r["Severity"].lower() == "mild":
+                emoji = "🌿"
             st.chat_message("assistant").markdown(
                 f"**{emoji} Disease:** {r['Disease']}\n**Severity:** {r['Severity']}\n**Advice:** {r['Advice']}\n**Confidence:** {r['Confidence']:.1f}%"
             )
