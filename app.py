@@ -37,6 +37,15 @@ div.stButton > button:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     margin-top: 15px;
 }
+.mild {
+    border-left: 8px solid #81c784;
+}
+.moderate {
+    border-left: 8px solid #ffeb3b;
+}
+.severe {
+    border-left: 8px solid #e57373;
+}
 </style>
 """
 st.markdown(page_bg, unsafe_allow_html=True)
@@ -59,15 +68,16 @@ if user_input:
     else:
         st.markdown("### 🧬 Differential Diagnosis (Top 3 Matches)")
         for r in results:
+            severity = r["Severity"].lower()
             emoji = "💊"
-            if r["Severity"].lower() == "severe":
+            if severity == "severe":
                 emoji = "⚠️"
-            elif r["Severity"].lower() == "moderate":
+            elif severity == "moderate":
                 emoji = "🩺"
 
             st.markdown(
                 f"""
-                <div class='card'>
+                <div class='card {severity}'>
                 <h4>{emoji} {r['Disease']}</h4>
                 <b>Severity:</b> {r['Severity']}<br>
                 <b>Advice:</b> {r['Advice']}<br>
@@ -90,6 +100,7 @@ if user_input:
 
 st.markdown("---")
 st.markdown("### 💬 Chat with HealthBot")
+
 user_message = st.chat_input("Describe your symptoms here...")
 if user_message:
     st.chat_message("user").write(user_message)
