@@ -1,29 +1,33 @@
 import pandas as pd
 
-df = pd.read_csv("md.csv", sep=",", quotechar='"', engine="python")
+try:
+    df = pd.read_csv("md.csv")
+except Exception as e:
+    print("Error loading dataset:", e)
+    df = pd.DataFrame(columns=["Disease", "Symptoms", "Advice", "Severity"])
 
-def assess_patient_symptoms(user_input):
-    user_input = user_input.lower()
-    user_symptoms = [s.strip() for s in user_input.split(",")]
+def assess_patient_symptoms(symptom_input):
+    if df.empty:
+        return "Dataset not found or empty."
 
-    possible_diseases = []
-    for idx, row in df.iterrows():
-        csv_symptoms = [s.strip().lower() for s in str(row["Symptoms"]).split(",")]
-        overlap = len(set(user_symptoms) & set(csv_symptoms))
-        if overlap > 0:
-           
-            confidence = overlap / (len(user_symptoms) + len(csv_symptoms) - overlap) * 100
-            possible_diseases.append({
+    symptoms = [s.strip().lower() for s in symptom_input.split(",") if s.strip()]
+    if not symptoms:
+        return "Please enter at least one symptom."
+
+    results = []
+    for _, row in df.iterrows():
+        disease_symptoms = [s.strip().lower() for s in row["Symptoms"].split(",")]
+        match_score = len(set(symptoms) & set(disease_symptoms)) / len(disease_symptoms)
+        if match_score > 0:
+            results.append({
                 "Disease": row["Disease"],
-                "Advice": row["Advice"],
                 "Severity": row["Severity"],
-                "Confidence": confidence
+                "Advice": row["Advice"],
+                "Confidence": match_score * 100
             })
 
-    possible_diseases.sort(key=lambda x: x["Confidence"], reverse=True)
-    top_3 = possible_diseases[:3]
-
-    if not top_3:
+    if not results:
         return "No matching disease found."
 
-    return top_3
+    results = sorted(results, key=lambda x: x["Confidence"], reverse=True)[:3]
+    return results
