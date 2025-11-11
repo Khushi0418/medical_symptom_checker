@@ -1,33 +1,23 @@
 from groq import Groq
 import os
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+def generate_ai_response(prompt):
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        return "AI unavailable (Missing API key)."
 
-def normalize_symptoms(text):
-    prompt = f"""
-    Convert the following symptoms into short, comma-separated medical keywords.
-    Do not diagnose. Only rewrite the symptoms into clinical terms.
+    try:
+        client = Groq(api_key=api_key)
 
-    Symptoms: "{text}"
+        response = client.chat.completions.create(
+            model="gemma2-9b-it",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=200,
+        )
 
-    Examples:
-    "tired all the time" → "fatigue, weakness"
-    "pain behind eyes" → "headache, eye pain"
-    "burning in stomach" → "acidity, abdominal pain"
+        return response.choices[0].message.content
 
-    Now rewrite:
-    """
-
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    return response.choices[0].message.content.strip()
-
-def generate_ai_response(text):
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[{"role": "user", "content": text}]
-    )
-    return response.choices[0].message.content.strip()
+    except Exception as e:
+        return f"AI unavailable (Error code: {e})"
