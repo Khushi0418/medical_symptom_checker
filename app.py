@@ -2,6 +2,7 @@ import streamlit as st
 from query_engine import assess_patient_symptoms
 from ai_interface import generate_ai_response
 import random
+import os
 
 st.set_page_config(page_title="Medical Symptom Checker", page_icon="🩺", layout="centered")
 
@@ -15,32 +16,18 @@ h1 {
     color: #0d47a1;
     text-align: center;
 }
-div.stButton > button {
-    background-color: #1e88e5;
-    color: white;
-    border-radius: 10px;
-    padding: 10px 24px;
-    font-size: 16px;
-    border: none;
-}
-div.stButton > button:hover {
-    background-color: #1565c0;
-}
-.stTextInput>div>div>input {
-    border-radius: 10px;
-}
 .card {
     border-radius: 15px;
-    padding: 15px;
+    padding: 18px;
     margin-top: 15px;
     color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
 }
 .mild {
-    background: linear-gradient(to right, #66bb6a, #43a047);
+    background: linear-gradient(to right, #6ddf6d, #43a047);
 }
 .moderate {
-    background: linear-gradient(to right, #ffb300, #f57c00);
+    background: linear-gradient(to right, #ffca28, #fb8c00);
 }
 .severe {
     background: linear-gradient(to right, #ef5350, #c62828);
@@ -58,14 +45,17 @@ st.markdown("### ✅ Select symptoms:")
 selected_symptoms = [s for s in common_symptoms if st.checkbox(s)]
 
 manual_input = st.text_input("Or enter your symptoms (comma-separated):")
+
 user_input = ", ".join(selected_symptoms + ([manual_input] if manual_input else []))
 
 if user_input:
     results = assess_patient_symptoms(user_input)
+
     if isinstance(results, str):
         st.warning(results)
     else:
         st.markdown("### 🧬 Differential Diagnosis (Top 3 Matches)")
+
         for r in results:
             severity = r["Severity"].lower()
             emoji = "💊"
@@ -79,10 +69,10 @@ if user_input:
             st.markdown(
                 f"""
                 <div class='card {severity}'>
-                <h4>{emoji} {r['Disease']}</h4>
-                <b>Severity:</b> {r['Severity']}<br>
-                <b>Advice:</b> {r['Advice']}<br>
-                <b>Confidence:</b> {r['Confidence']:.1f}%
+                    <h4>{emoji} {r['Disease']}</h4>
+                    <b>Severity:</b> {r['Severity']}<br>
+                    <b>Advice:</b> {r['Advice']}<br>
+                    <b>Confidence:</b> {r['Confidence']}%
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -100,12 +90,15 @@ if user_input:
         st.info(random.choice(tips))
 
 st.markdown("---")
-st.markdown("### 💬 Chat with HealthBot")
 
+st.markdown("### 💬 Chat with HealthBot")
 user_message = st.chat_input("Describe your symptoms here...")
+
 if user_message:
     st.chat_message("user").write(user_message)
+
     reply = assess_patient_symptoms(user_message)
+
     if isinstance(reply, str):
         st.chat_message("assistant").write(reply)
     else:
@@ -117,11 +110,20 @@ if user_message:
                 emoji = "🩺"
             elif r["Severity"].lower() == "mild":
                 emoji = "🌿"
+
             st.chat_message("assistant").markdown(
-                f"**{emoji} Disease:** {r['Disease']}\n**Severity:** {r['Severity']}\n**Advice:** {r['Advice']}\n**Confidence:** {r['Confidence']:.1f}%"
+                f"**{emoji} Disease:** {r['Disease']}\n"
+                f"**Severity:** {r['Severity']}\n"
+                f"**Advice:** {r['Advice']}\n"
+                f"**Confidence:** {r['Confidence']}%"
             )
 
-        best_match = reply[0]
-        summary_prompt = f"Explain in simple terms what {best_match['Disease']} is and why it causes {user_message}."
-        summary = generate_ai_response(summary_prompt)
-        st.chat_message("assistant").markdown(f"🧠 **AI Explanation:**\n{summary}")
+        best = reply[0]
+        ai_prompt = f"Explain in simple words what {best['Disease']} is and how it causes {user_message}."
+
+        ai_reply = generate_ai_response(ai_prompt)
+
+        if ai_reply:
+            st.chat_message("assistant").markdown(f"🧠 **AI Explanation:**\n{ai_reply}")
+        else:
+            st.chat_message("assistant").markdown("AI explanation unavailable.")
