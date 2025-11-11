@@ -4,3 +4,5 @@ sentence-transformers
 chromadb
 faiss-cpu
 python-dotenv
+groq
+pandas

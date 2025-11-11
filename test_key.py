@@ -1,11 +1,16 @@
-from dotenv import load_dotenv
 import os
+from groq import Groq
 
-load_dotenv()
+api = os.getenv("GROQ_API_KEY")
+print("KEY:", api)
 
-api_key = os.getenv("OPENAI_API_KEY")
+client = Groq(api_key=api)
 
-if api_key:
-    print("OpenAI API key is loaded successfully!")
-else:
-    print("Failed to load OpenAI API key.")
+resp = client.chat.completions.create(
+    model="llama-3.1-8b-instant",
+    messages=[
+        {"role": "user", "content": "Hello!"},
+    ],
+)
+
+print("AI:", resp.choices[0].message.content)

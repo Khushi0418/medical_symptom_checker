@@ -1,15 +1,15 @@
-import openai
 import os
-openai.api_key = os.getenv("OPENAI_API_KEY")
+from groq import Groq
 
-def generate_ai_response(prompt: str) -> str:
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+def generate_ai_response(prompt):
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # or gpt-4 if available
+        resp = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            max_tokens=500
+            temperature=0.7
         )
-        return response.choices[0].message.content.strip()
+        return resp.choices[0].message.content
     except Exception as e:
-        return f"Error: {str(e)}"
+        return None
