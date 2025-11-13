@@ -4,164 +4,172 @@ An AI-powered interactive health assistant built using Streamlit
 
 ✅ Overview
 
-This project is an end-to-end, user-facing medical symptom checker that helps users understand possible health conditions based on the symptoms they enter. The system combines a structured medical dataset with a lightweight AI explanation generator to provide a user-friendly diagnostic experience.
+This project is an end-to-end, user-facing medical symptom checker that helps users understand possible health conditions based on symptoms they enter. The system combines a structured medical dataset with a rule-based matching engine and a Groq AI–powered explanation generator to provide a user-friendly diagnostic experience.
 
 Users can:
 
-a) Select symptoms through checkboxes
+✔ Select symptoms via checkboxes
 
-b) Enter symptoms manually
+✔ Enter symptoms manually
 
-c) Chat with the HealthBot
+✔ Chat with the HealthBot
 
-d) Receive top 3 possible disease matches
+✔ Receive top 3 possible disease matches
 
-e) View severity level, advice, and confidence score
+✔ View severity level, advice, and confidence score
 
-f) Read simplified AI-generated explanations
+✔ Read simplified AI-generated explanations
 
-g) Access the deployed web app online
+✔ Access the deployed web app online
 
 ✅ Problem Statement
 
-People often search online for symptoms and get overwhelmed or misled by scattered information. There is a need for a simple, interactive tool that helps users make sense of symptoms quickly and safely.
+People often search online for symptoms and get overwhelmed or misled by scattered information.
+There is a need for a simple, interactive tool that helps users make sense of symptoms quickly and safely.
 
 This application helps users:
 
-a) Understand possible conditions
+Understand possible conditions
 
-b) Get basic health guidance
+Get basic health guidance
 
-c) Learn when to seek medical help
+Learn when to seek medical help
 
-d) Interact with an AI assistant in real time
+Interact with an AI assistant in real time
 
-e) Target users include students, general public, and anyone seeking quick preliminary information.
+Target Users → Students, general public, and anyone seeking quick preliminary health information.
 
 ✅ Dataset
 
 A custom medical dataset (md.csv) was created containing:
 
-a) Disease name
+Disease name
 
-b) Symptoms list
+Symptoms list
 
-c) Medical advice
+Medical advice
 
-d) Severity (Mild / Moderate / Severe)
+Severity level (Mild / Moderate / Severe)
 
-The system matches user symptoms against this dataset using overlap scoring.
+The system matches user symptoms using a rule-based overlap-scoring algorithm.
 
 ✅ Features
 🔹 1. Symptom-Based Diagnosis
 
-Users enter symptoms manually or via checkboxes
+Users input symptoms (typed or selected)
 
-System calculates symptom overlap
+System compares with CSV dataset
 
-Displays Top 3 matches (“Differential Diagnosis”)
-
+Displays Top 3 differential diagnosis matches
 Each includes:
+✔ Disease
+✔ Severity
+✔ Advice
+✔ Confidence score
 
-✅ Disease
+🔹 2. AI Explanation (Groq AI)
 
-✅ Severity level
-
-✅ Medical advice
-
-✅ Confidence score
-
-🔹 2. AI Explanation
-
-The app uses a lightweight OpenAI API call to generate:
+The app uses Groq’s LLaMA 3.1 API instead of OpenAI to generate:
 
 Simple explanations of the disease
 
-Why symptoms match
+Why symptoms may be related
 
-What the user should understand
+Easy-to-understand summaries
 
-(If no key is provided, the system still works using CSV-based results.)
+💡 If the AI key is not available, the system still works using CSV-based results.
 
 🔹 3. Chatbot Mode
 
 Users can chat with HealthBot, entering symptoms conversationally.
-
-The chatbot responds with:
+Bot responds with:
 
 Matching conditions
 
-Confidence
+Severity & confidence
 
-Severity
-
-Advice
+Medical advice
 
 AI-generated explanation
 
 🔹 4. UI/UX Enhancements
 
-Gradient background
+Modern gradient background
 
-Card-style disease display
+Colored disease cards
 
 Emojis for severity
 
 Randomized health tips
 
-Clean and beginner-friendly interaction flow
+Clean and beginner-friendly layout
 
 ✅ Technical Stack
-
 🖥️ Frontend / UI
 
 Streamlit
 
-Custom HTML/CSS for styling
+Custom CSS
 
 ⚙️ Backend
 
 Python
 
-Pandas (CSV handling)
+Pandas
 
-Custom matching algorithm
+Custom matching logic
 
-🤖 AI Integration
+🤖 AI Integration (Updated)
 
-OpenAI API (Chat Completions → updated to new API syntax)
+Groq API (LLaMA 3.1 models)
+
+Provides explanations and chatbot responses
+
+Faster inference than OpenAI models
 
 📦 Deployment
 
 Streamlit Cloud
 
-GitHub version control
+GitHub for version control
 
 ✅ System Architecture
-User Input → Streamlit UI → Symptom Processor → 
-CSV Matching Engine → Top 3 Predictions → AI Summarizer → Output to UI
+User Input
+     ↓
+Streamlit UI
+     ↓
+Symptom Processing
+     ↓
+CSV-Based Matching Engine
+     ↓
+Top 3 Disease Predictions
+     ↓
+Groq AI Explanation Module
+     ↓
+Output to UI (Cards + Chatbot)
 
 ✅ Run the App Locally
-
-1) Clone the repository:
-
+1. Clone the repository
 git clone https://github.com/Khushi0418/medical_symptom_checker.git
 cd medical_symptom_checker
 
-
-2) Create a virtual environment:
-
+2. Create a virtual environment
 python -m venv venv
 venv\Scripts\activate
 
-
-3) Install dependencies:
-
+3. Install dependencies
 pip install -r requirements.txt
 
+4. Add your Groq API Key
 
-4) Run the app:
+Create a .env file:
 
+GROQ_API_KEY=your_key_here
+
+
+OR set it using environment variables.
+
+5. Run the app
 streamlit run app.py
 
 ✅ Deployed App
@@ -169,30 +177,37 @@ streamlit run app.py
 🔗 Live Streamlit App:
 https://medicalsymptomchecker-cffcvjylh83shgtskjtzr9.streamlit.app/
 
-
 ✅ Evaluation Summary
 
-a) Users tested the system; feedback was positive regarding clarity and UI.
+✔ Smooth end-to-end workflow
 
-b) Responses are fast (usually under 3 seconds).
+✔ Fast responses (3–5 seconds)
 
-c) Diagnosis accuracy is reasonable for educational use.
+✔ Positive feedback from test users
 
-d) AI explanation improves user understanding.
+✔ Stable predictions from CSV + AI hybrid system
+
+✔ AI explanations enhance learning and clarity
 
 ✅ Future Improvements
 
-Add more diseases to the dataset
+Add a larger medical dataset
 
-Introduce a trained ML model instead of rule-based matching
+Integrate embeddings for better symptom understanding
 
-Use embeddings for better symptom mapping
+Use an ML-trained classifier instead of rule-based matching
 
-Add multilingual support
+Add multilingual output
 
-Add secure user accounts for history tracking
+Add user accounts with medical history
 
-✅ License
+Voice-based symptom input
 
-This project is for educational purposes only and not a replacement for professional medical diagnosis.
+More advanced medical triaging
+
+⚠️ License
+
+This project is for educational purposes only and not a medical diagnostic tool.
+Users must consult qualified healthcare professionals for actual medical issues.
+
 
